@@ -33,6 +33,10 @@
 		<folder>models</folder>
 	</files>
 
+	<languages folder="site/language">
+        	<language tag="en-GB">en-GB/en-GB.com_artgallery.ini</language>
+    	</languages>
+
 	<administration>
 		<!-- Administration Menu Section -->
 		<menu>Art gallery!</menu>
@@ -44,9 +48,21 @@
 			<!-- Admin Main File Copy Section -->
 			<filename>index.html</filename>
 			<filename>artgallery.php</filename>
+			<filename>controller.php</filename>
 			<!-- SQL files section -->
 			<folder>sql</folder>
+			<!-- models files section -->
+			<folder>models</folder>
+			<!-- views files section -->
+			<folder>views</folder>
+			<!-- controllers files section -->
+			<folder>controllers</folder>
 		</files>
+		<languages folder="admin/language">
+			<language tag="en-GB">en-GB/en-GB.com_artgallery.ini</language>
+			<language tag="en-GB">en-GB/en-GB.com_artgallery.sys.ini</language>
+		</languages>
 	</administration>
+
 
 </extension>

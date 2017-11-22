@@ -18,4 +18,10 @@ class ArtGalleryModelUsers extends JModelList
 		parent::__construct($config);
 	}
 
+    public function getUsers()
+    {
+        $registeredUsers = JAccess::getUsersByGroup(2); // in my project it was $self::REGISTERED_GROUP
+        return $registeredUsers;
+    }
+
 }
