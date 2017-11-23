@@ -7,7 +7,7 @@ class JConfig {
 	public $sitename = 'Art gallery';
 	public $editor = 'tinymce';
 	public $captcha = '0';
-	public $list_limit = '20';
+	public $list_limit = '5';
 	public $access = '1';
 	public $debug = '0';
 	public $debug_lang = '0';

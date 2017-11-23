@@ -11,6 +11,7 @@ class ArtGalleryViewUsers extends JViewLegacy
 
         $this->users = $this->get('Items');
 
+        $this->pagination = $this->get('Pagination');
         $this->filterForm = $this->get('FilterForm');
         $this->activeFilters = $this->get('ActiveFilters');
         $this->state = $this->get('State');
