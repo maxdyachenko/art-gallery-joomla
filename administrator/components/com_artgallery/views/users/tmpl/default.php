@@ -56,7 +56,7 @@ $listDirn    = $this->escape($this->state->get('list.direction'));
                         <?php echo $user->email; ?>
                     </td>
                     <td align="center">
-                        <!--                        insert here ban button-->
+                        <?php echo JHtml::_('jgrid.published', $user->block, $i, 'users.', true); ?>
                     </td>
                 </tr>
             <?php endforeach; ?>

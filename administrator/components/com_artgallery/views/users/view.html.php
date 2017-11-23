@@ -15,6 +15,7 @@ class ArtGalleryViewUsers extends JViewLegacy
         $this->filterForm = $this->get('FilterForm');
         $this->activeFilters = $this->get('ActiveFilters');
         $this->state = $this->get('State');
+
         $this->addToolBar();
         parent::display($tpl);
     }
@@ -22,7 +23,7 @@ class ArtGalleryViewUsers extends JViewLegacy
     {
         $title = JText::_('COM_ARTGALLERY_USERS_WITH_GALLERIES');
 
-
+        JToolBarHelper::deleteList(COM_ARTGALLERY_DELETE_ALL_GALLERIES, 'users.delete');
         JToolBarHelper::title($title);
     }
 
