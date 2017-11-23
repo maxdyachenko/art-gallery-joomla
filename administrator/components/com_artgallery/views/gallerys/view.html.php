@@ -9,7 +9,7 @@ class ArtGalleryViewGallerys extends JViewLegacy
     public function display($tpl = null)
     {
         $this->items = $this->get('Items');
-        var_dump($this->items);
         parent::display($tpl);
     }
+
 }

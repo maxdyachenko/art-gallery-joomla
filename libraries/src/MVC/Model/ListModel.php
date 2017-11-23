@@ -189,7 +189,7 @@ class ListModel extends BaseDatabaseModel
 		catch (\RuntimeException $e)
 		{
 			$this->setError($e->getMessage());
-
+			print_r($e->getMessage());die;
 			return false;
 		}
 

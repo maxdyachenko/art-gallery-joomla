@@ -421,7 +421,6 @@ class HtmlView extends \JObject
 			{
 				// The method exists, let's call it and return what we get
 				$result = $this->_models[$model]->$method();
-
 				return $result;
 			}
 		}
