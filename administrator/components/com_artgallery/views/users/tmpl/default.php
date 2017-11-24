@@ -26,7 +26,7 @@ $listDirn    = $this->escape($this->state->get('list.direction'));
                 <!--checkbox-->
             </th>
             <th width="50%">
-                <?php echo JHtml::_('grid.sort', 'COM_ARTGALLERY_USER_NAME', 'username', $listDirn, $listOrder); ?>
+                <?php echo JHtml::_('grid.sort', 'COM_ARTGALLERY_NAME', 'username', $listDirn, $listOrder); ?>
             </th>
             <th width="30%">
                 <?php echo JText::_('COM_ARTGALLERY_USER_EMAIL'); ?>

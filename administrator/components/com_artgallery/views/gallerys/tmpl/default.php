@@ -11,19 +11,17 @@ defined('_JEXEC') or die;
     <table class="table table-striped table-hover">
         <thead>
         <tr>
-            <th width="3%"><?php echo "ID"; ?></th>
+            <th width="3%"><?php echo "#"; ?></th>
             <th width="2%">
                 <!--checkbox-->
             </th>
-            <th width="50%">
-                <?php echo JText::_('COM_ARTGALLERY_USER_NAME'); ?>
+            <th width="65%">
+                <?php echo JText::_('COM_ARTGALLERY_NAME'); ?>
             </th>
             <th width="30%">
-                <?php echo JText::_('COM_ARTGALLERY_USER_EMAIL'); ?>
+                <?php echo JText::_('COM_ARTGALLERY_IMAGES_N'); ?>
             </th>
-            <th width="15%">
-                <?php echo JText::_('COM_ARTGALLERY_BAN_USER'); ?>
-            </th>
+
         </tr>
         </thead>
         <tbody>
@@ -32,7 +30,7 @@ defined('_JEXEC') or die;
             ?>
             <tr>
                 <td>
-                    <?php echo $i; ?>
+                    <?php echo $i+1; ?>
                 </td>
                 <td>
                     <?php echo JHtml::_('grid.id', $i, $item->id); ?>
@@ -43,10 +41,7 @@ defined('_JEXEC') or die;
                     </a>
                 </td>
                 <td align="center">
-                    <?php echo $item->email; ?>
-                </td>
-                <td align="center">
-                    <!--                        insert here ban button-->
+                    <?php echo $this->count[$i]; ?>
                 </td>
             </tr>
         <?php endforeach; ?>

@@ -19,19 +19,49 @@ class ArtGalleryModelGallerys extends JModelList
     }
 
 
-    public function getItems()
+    public function getListQuery()
     {
         $jinput = JFactory::getApplication()->input;
-        $user_id = $jinput->get('id');
-        $db = JFactory::getDbo();
-
+        $id = intval($jinput->get('id'));
+        $db    = JFactory::getDbo();
         $query = $db->getQuery(true);
-        $query->select('id, user_id, name, avatar');
-        $query->where('user_id',$user_id);
-        $query->from($db->quoteName('#__gallerys_list'));
-        $db->setQuery($query);
+        $query->select($db->quoteName(array('id', 'name')))
+            ->from($db->quoteName('#__gallerys_list'))
+            ->where($db->quoteName('#__gallerys_list.user_id') . ' = ' . $id);
 
-        return $db->loadObjectList();
+        return $query;
+
+    }
+
+    public function getImagesCount($gallery_id)
+    {
+        $jinput = JFactory::getApplication()->input;
+        $id = intval($jinput->get('id'));
+        $db    = JFactory::getDbo();
+        $query ="SELECT COUNT(*) AS number FROM #__users_imgs WHERE gallery_id = {$gallery_id} AND user_id = {$id}";
+
+        $db->setQuery( $query );
+        $res = $db->loadObjectList();
+        return $res[0]->number;
+    }
+
+    public function delete($id)
+    {
+        $str = "";
+        for ($i = 0;$i < count($id); $i++){
+            $str .= $id[$i];
+            if ($i != count($id) - 1) {
+                $str .= ',';
+            }
+        }
+        $sql = "DELETE FROM `#__gallerys_list` WHERE `id` IN ({$str}) ; DELETE FROM `#__users_imgs` WHERE `gallery_id` IN ({$str}) ;";
+        $db    = JFactory::getDbo();
+        $queries = $db->splitSql($sql);
+        foreach( $queries AS $query ) {
+            $db->setQuery($query);
+            $db->execute();
+        }
+        return true;
     }
 
 }
