@@ -14,20 +14,27 @@ class ArtGalleryControllerGallery extends JControllerLegacy
         $this->user_id = $this->session->get('artgallery_front_user_id');
     }
 
+    public function getModel($name = 'Gallery', $prefix = 'ArtGalleryModel')
+    {
+        $model = parent::getModel($name, $prefix);
+
+        return $model;
+    }
+
     public function remove()
     {
-//            $model = $this->getModel('entry');
-//
-//            if(!$model->delete())
-//            {
-//                $msg = JText::_('COM_EASYBOOKRELOADED_ERROR_ENTRY_COULD_NOT_BE_DELETED');
-//                $type = 'error';
-//            }
-//            else
-//            {
-//                $msg = JText::_('COM_EASYBOOKRELOADED_ENTRY_DELETED');
-//                $type = 'success';
-//            }
+
+        $model = $this->getModel();
+        if(!$model->delete($this->gallery_id))
+        {
+            $msg = JText::_('COM_ARTGALLERY_ERROR_GALLERY_COULD_NOT_BE_DELETED');
+            $type = 'error';
+        }
+        else
+        {
+            $msg = JText::_('COM_ARTGALLERY_GALLERY_DELETED');
+            $type = 'success';
+        }
 
 
         $link = JRoute::_('index.php?option=com_artgallery&view=gallerys', false);
