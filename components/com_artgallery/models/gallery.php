@@ -21,5 +21,15 @@ class ArtGalleryModelGallery extends JModelItem
         return true;
     }
 
+    public function hasLimit($id)
+    {
+        $db    = JFactory::getDbo();
+        $query ="SELECT COUNT(*) AS number FROM #__gallerys_list WHERE user_id = {$id}";
+
+        $db->setQuery($query);
+        $res = $db->loadObjectList();
+        return $res[0]->number < 5;
+    }
+
 
 }
