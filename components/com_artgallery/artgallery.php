@@ -1,14 +1,19 @@
 <?php
-// No direct access to this file
 defined('_JEXEC') or die('Restricted access');
 
-// import joomla controller library
-jimport('joomla.application.component.controller');
+require_once(JPATH_COMPONENT.'/controller.php');
 
-$controller = JControllerLegacy::getInstance('ArtGallery');
+if($controller = JFactory::getApplication()->input->getWord('controller', ''))
+{
+    $path = JPATH_COMPONENT.'/controllers/'.$controller.'.php';
 
-// Perform the Request task
-$input = JFactory::getApplication()->input;
-$controller->execute($input->getCmd('task'));
+    if(file_exists($path))
+    {
+        require_once $path;
+    }
+}
 
+$classname = 'ArtGalleryController'.$controller;
+$controller = new $classname();
+$controller->execute(JFactory::getApplication()->input->get('task'));
 $controller->redirect();

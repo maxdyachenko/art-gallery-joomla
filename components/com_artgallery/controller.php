@@ -11,6 +11,8 @@ class ArtGalleryController extends JControllerLegacy
     {
         $user = JFactory::getUser();
         $app  = JFactory::getApplication();
+        $session = JFactory::getSession();
+        $session->set('artgallery_front_user_id', $user->get('id'));
         if ($user->get('guest') == 1 || $user->get('block') == 1)
         {
             $uri = JUri::getInstance();
@@ -24,4 +26,5 @@ class ArtGalleryController extends JControllerLegacy
 
         parent::display($cachable, $urlparams);
     }
+
 }
