@@ -8,10 +8,10 @@ jimport('joomla.application.component.view');
 /**
  * HTML View class for the HelloWorld Component
  */
-class HelloWorldViewHelloWorld extends JViewLegacy
+class ArtGalleryViewGallerys extends JViewLegacy
 {
 	// Overwriting JView display method
-	function display($tpl = null)
+	public function display($tpl = null)
 	{
 		// Assign data to the view
 		$this->msg = $this->get('Msg');
