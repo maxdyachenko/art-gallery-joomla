@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form name="create">
+    <fieldset name="create">
+        <field
+                name="myname"
+                type="text"
+                label="COM_ARTGALLERY_FORM_LBL_NAME"
+                maxlength="16"
+                message="COM_ARTGALLERY_NAME_ERROR"
+                required="true"
+        >
+        </field>
+
+        <field
+                name="myavatar"
+                type="file"
+                label="COM_ARGALLERY_FORM_LABEL_AVATAR"
+                size="1"
+                accept="image/*"
+                required="true" >
+        </field>
+
+    </fieldset>
+</form>

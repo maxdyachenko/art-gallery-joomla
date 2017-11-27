@@ -1,7 +1,7 @@
 <?php
 defined('_JEXEC') or die('Restricted access');
 
-class ArtGalleryControllerGallery extends JControllerLegacy
+class ArtGalleryControllerGallery extends JControllerForm
 {
     public function __construct()
     {
@@ -55,5 +55,30 @@ class ArtGalleryControllerGallery extends JControllerLegacy
         $msg = JText::_('COM_ARTGALLERY_ERROR_LIMIT');
         $type = 'message';
         $this->setRedirect($link, $msg, $type);
+    }
+
+    public function submit()
+    {
+        // Check for request forgeries.
+        JRequest::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+
+        // Initialise variables.
+        $app	= JFactory::getApplication();
+        $model	= $this->getModel();
+
+        // Get the data from the form POST
+        $data = JRequest::getVar('jform', array(), 'post', 'array');
+
+        // Now update the loaded data to the database via a function in the model
+        //$upditem	= $model->updItem($data);
+
+        // check if ok and display appropriate message.  This can also have a redirect if desired.
+        if ($upditem) {
+            echo "<h2>Updated Greeting has been saved</h2>";
+        } else {
+            echo "<h2>Updated Greeting failed to be saved</h2>";
+        }
+
+        return true;
     }
 }
