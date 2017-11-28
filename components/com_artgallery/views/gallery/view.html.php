@@ -14,6 +14,7 @@ class ArtGalleryViewGallery extends JViewLegacy
         $item		= $this->get('Item');
         $this->form	= $this->get('Form');
 
+
         // Check for errors.
         if (count($errors = $this->get('Errors')))
         {
@@ -22,5 +23,18 @@ class ArtGalleryViewGallery extends JViewLegacy
         }
         // Display the view
         parent::display($tpl);
+        $this->setDocument();
     }
+
+    public function setDocument()
+    {
+        $document = JFactory::getDocument();
+
+        $css_file = 'artgallery_main';
+
+        $document->addStyleSheet(JUri::root().'components/com_artgallery/media/css/'.$css_file.'.css');
+        $document->addScript(JUri::root(TRUE) . '/components/com_artgallery/media/js/name.js');
+        $document->addScript(JUri::root(TRUE) . '/components/com_artgallery/media/js/file.js');
+    }
+
 }

@@ -26,7 +26,7 @@ class ArtGalleryViewGallerys extends JViewLegacy
         // Set CSS File
         $css_file = 'artgallery_main';
 
-        $document->addStyleSheet(JUri::root().'components/com_artgallery/css/'.$css_file.'.css');
+        $document->addStyleSheet(JUri::root().'components/com_artgallery/media/css/'.$css_file.'.css');
 
     }
 }

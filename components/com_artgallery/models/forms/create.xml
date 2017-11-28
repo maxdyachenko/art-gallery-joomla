@@ -2,9 +2,10 @@
 <form name="create">
     <fieldset name="create">
         <field
-                name="myname"
+                name="name"
                 type="text"
                 label="COM_ARTGALLERY_FORM_LBL_NAME"
+                class="required validate-name"
                 maxlength="16"
                 message="COM_ARTGALLERY_NAME_ERROR"
                 required="true"
@@ -12,10 +13,10 @@
         </field>
 
         <field
-                name="myavatar"
+                name="avatar"
                 type="file"
                 label="COM_ARGALLERY_FORM_LABEL_AVATAR"
-                size="1"
+                class="validate-file"
                 accept="image/*"
                 required="true" >
         </field>
