@@ -8,14 +8,8 @@ jimport('joomla.application.component.modelitem');
 
 class ArtGalleryModelGallery extends JModelForm
 {
-    /**
-     * @var object item
-     */
-    protected $item;
 
-    /**
-     * Get the data for a new qualification
-     */
+
     public function getForm($data = array(), $loadData = true)
     {
 
@@ -75,6 +69,35 @@ class ArtGalleryModelGallery extends JModelForm
         $db->setQuery($query);
         $res = $db->loadObjectList();
         return $res[0]->number < 5;
+    }
+
+    public function validate($data)
+    {
+        if (!preg_match('~^[A-Za-z]{2,16}$~', $data[0]))
+        {
+            $this->setError(JText::_(COM_ARTGALLERY_NAME_ERROR));
+            return false;
+        }
+        if ($data[1]['size'] > 200000)
+        {
+            $this->setError(JText::_(COM_ARTGALLERY_FILE_ERROR));
+            return false;
+        }
+        if ($data[1]['type'] == 'image/jpeg' || $data[1]['type'] == 'image/png' || $data[1]['type'] == 'image/gif')
+        {
+            return $data;
+        }
+        else
+        {
+            $this->setError(JText::_(COM_ARTGALLERY_FILE_TYPE_ERROR));
+            return false;
+        }
+
+    }
+
+    public function save($data)
+    {
+        $filename = JFile::makeSafe($data[]['name']);
     }
 
 

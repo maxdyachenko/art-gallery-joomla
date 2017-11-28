@@ -15,5 +15,6 @@ if($controller = JFactory::getApplication()->input->getWord('controller', ''))
 
 $classname = 'ArtGalleryController'.$controller;
 $controller = new $classname();
+
 $controller->execute(JFactory::getApplication()->input->get('task'));
 $controller->redirect();

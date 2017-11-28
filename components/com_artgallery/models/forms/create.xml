@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<form name="create">
+<form name="create" addrulepath="components/com_artgallery/models/rules">
     <fieldset name="create">
         <field
                 name="name"
@@ -9,6 +9,7 @@
                 maxlength="16"
                 message="COM_ARTGALLERY_NAME_ERROR"
                 required="true"
+                validate="name"
         >
         </field>
 
@@ -18,6 +19,7 @@
                 label="COM_ARGALLERY_FORM_LABEL_AVATAR"
                 class="validate-file"
                 accept="image/*"
+                validate="file"
                 required="true" >
         </field>
 

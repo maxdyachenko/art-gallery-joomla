@@ -8,9 +8,9 @@ JHtml::_('behavior.tooltip');
 JHtml::_('behavior.formvalidator');
 
 ?>
-<h2>Create you gallery</h2>
+<h2>Create your gallery</h2>
 
-<form class="form-validate" action="<?php echo JRoute::_('index.php'); ?>" enctype="multipart/form-data" method="post" id="create" name="create">
+<form class="form-validate" action="<?php echo JRoute::_('index.php?option=com_artgallery'); ?>" enctype="multipart/form-data" method="post" id="create" name="create">
     <fieldset>
         <dl>
             <dt><?php echo $this->form->getLabel('name'); ?></dt>
@@ -23,7 +23,8 @@ JHtml::_('behavior.formvalidator');
 
             <dd><input type="hidden" name="option" value="com_artgallery" />
                 <input type="hidden" name="MAX_FILE_SIZE" value="2000">
-                <input type="hidden" name="task" value="create.submit" />
+                <input type="hidden" name="task" value="submit"/>
+                <input type="hidden" name="controller" value="gallery"/>
             </dd>
 
             <dd><button type="submit" class="button validate"><?php echo JText::_('Submit'); ?></button>

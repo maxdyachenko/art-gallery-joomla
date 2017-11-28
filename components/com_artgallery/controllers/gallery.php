@@ -1,6 +1,6 @@
 <?php
 defined('_JEXEC') or die('Restricted access');
-
+jimport('joomla.filesystem.file');
 class ArtGalleryControllerGallery extends JControllerForm
 {
     public function __construct()
@@ -59,26 +59,42 @@ class ArtGalleryControllerGallery extends JControllerForm
 
     public function submit()
     {
-        // Check for request forgeries.
-        JRequest::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+        JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
-        // Initialise variables.
-        $app	= JFactory::getApplication();
-        $model	= $this->getModel();
+        $app        = JFactory::getApplication();
+        $jinput = JFactory::getApplication()->input;
+        $name = $jinput->get('name');
+        $file  = $jinput->files->get('avatar');
+        $data = array();
+        array_push($data, $name, $file);
+        $data = $this->model->validate($data);
 
-        // Get the data from the form POST
-        $data = JRequest::getVar('jform', array(), 'post', 'array');
+        if ($data === false)
+        {
+            $error = $this->model->getErrors();
+            $app->enqueueMessage($error[0], 'warning');
+            return false;
+        }
+        $session = JFactory::getSession();
+        $id = $session->get('artgallery_front_user_id');
+        $fetch_name = time();
 
-        // Now update the loaded data to the database via a function in the model
-        //$upditem	= $model->updItem($data);
 
-        // check if ok and display appropriate message.  This can also have a redirect if desired.
-        if ($upditem) {
-            echo "<h2>Updated Greeting has been saved</h2>";
-        } else {
-            echo "<h2>Updated Greeting failed to be saved</h2>";
+        $dirName = JPATH_BASE. "/components/com_artgallery/media/images/user_id_" . $id . "/gallery_" . $fetch_name;
+        !file_exists($dirName) ? mkdir($dirName, 0777, true) : false;
+
+        $filename = JFile::makeSafe($data[1]['name']);
+
+        $dest = $dirName . '/' . $filename;
+        $src  = $data[1]['tmp_name'];
+
+        if (!JFile::upload($src, $dest))
+        {
+            $app->enqueueMessage(JText::_('File was not uploaded'), 'warning');
+            return false;
         }
 
-        return true;
+        //$this->model->save($data);
+        
     }
 }

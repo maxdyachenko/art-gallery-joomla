@@ -355,7 +355,6 @@ abstract class FormModel extends BaseDatabaseModel
 		$dispatcher->trigger('onUserBeforeDataValidation', array($form, &$data));
 
 		// Filter and validate the form data.
-		$data = $form->filter($data);
 		$return = $form->validate($data, $group);
 
 		// Check for an error.
@@ -374,7 +373,6 @@ abstract class FormModel extends BaseDatabaseModel
 			{
 				$this->setError($message);
 			}
-
 			return false;
 		}
 
