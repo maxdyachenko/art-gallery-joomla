@@ -16,6 +16,9 @@ class ArtGalleryViewGallerys extends JViewLegacy
 		$this->items = $this->get('Items');
 		$this->addHeadData();
 
+        $session = JFactory::getSession();
+        $this->id = $session->get('artgallery_front_user_id');
+
 		parent::display($tpl);
 	}
 
@@ -23,10 +26,8 @@ class ArtGalleryViewGallerys extends JViewLegacy
     {
         $document = JFactory::getDocument();
 
-        // Set CSS File
-        $css_file = 'artgallery_main';
 
-        $document->addStyleSheet(JUri::root().'components/com_artgallery/media/css/'.$css_file.'.css');
+        $document->addStyleSheet(JUri::root().'components/com_artgallery/media/css/artgallery_main.css');
 
     }
 }

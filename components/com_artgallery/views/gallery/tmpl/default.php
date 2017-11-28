@@ -17,9 +17,10 @@ JHtml::_('behavior.formvalidator');
             <dd><?php echo $this->form->getInput('name'); ?></dd>
             <span><?php echo JText::_('Min 2 chars, max 16 chars, only symbols'); ?></span>
 
-            <dt><?php echo $this->form->getLabel('avatar'); ?></dt>
-            <dd><?php echo $this->form->getInput('avatar'); ?></dd>
-            <span><?php echo JText::_('Max 2mb, only images allowed'); ?></span>
+            <dt><label id="avatar-lbl" for="avatar" class="required invalid">
+                Your gallery thumbnail<span class="star">&nbsp;*</span></label></dt>
+            <dd><input type="file" name="avatar" id="avatar" size="12" accept="image/*" class="validate-file required invalid" required="required" aria-required="true" aria-invalid="true"></dd>
+            <?php echo JText::sprintf('JGLOBAL_MAXIMUM_UPLOAD_SIZE_LIMIT', '2MB'); ?>
 
             <dd><input type="hidden" name="option" value="com_artgallery" />
                 <input type="hidden" name="MAX_FILE_SIZE" value="2000">

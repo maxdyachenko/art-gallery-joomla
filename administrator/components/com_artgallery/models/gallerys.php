@@ -47,6 +47,34 @@ class ArtGalleryModelGallerys extends JModelList
 
     public function delete($id)
     {
+        $session = JFactory::getSession();
+        $user_id = $session->get('art_gallery_user_id');
+
+        $db = JFactory::getDbo();
+
+        $results = array();
+
+        for ($i = 0;$i < count($id); $i++)
+        {
+            $query = $db->getQuery(true);
+
+            $query->select($db->quoteName(array('fetch_name')));
+            $query->from($db->quoteName('#__gallerys_list'));
+            $query->where($db->quoteName('id') . ' = ' . $id[$i]);
+
+            $db->setQuery($query);
+
+            array_push($results,$db->loadrow());
+            $dirName = JPATH_ROOT. "/components/com_artgallery/media/images/user_id_" . $user_id . "/gallery_" . $results[$i][0];
+            $files = glob($dirName . "/*");
+            foreach($files as $file){
+                if(is_file($file)){
+                    unlink($file);
+                }
+            }
+            rmdir($dirName);
+        }
+
         $str = "";
         for ($i = 0;$i < count($id); $i++){
             $str .= $id[$i];

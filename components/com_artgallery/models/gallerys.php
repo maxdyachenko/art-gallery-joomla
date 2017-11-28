@@ -15,7 +15,7 @@ class ArtGalleryModelGallerys extends JModelList
         $id = $session->get('artgallery_front_user_id');
         $db    = JFactory::getDbo();
         $query = $db->getQuery(true);
-        $query->select($db->quoteName(array('id', 'name', 'avatar')))
+        $query->select($db->quoteName(array('id', 'name', 'avatar', 'fetch_name')))
             ->from($db->quoteName('#__gallerys_list'))
             ->where($db->quoteName('#__gallerys_list.user_id') . ' = ' . $id);
 

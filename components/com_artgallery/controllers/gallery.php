@@ -72,8 +72,10 @@ class ArtGalleryControllerGallery extends JControllerForm
         if ($data === false)
         {
             $error = $this->model->getErrors();
-            $app->enqueueMessage($error[0], 'warning');
-            return false;
+            $link = JRoute::_('index.php?option=com_artgallery&controller=gallery&task=create', false);
+            $msg = $error[0];
+            $type = 'error';
+            $this->setRedirect($link, $msg, $type);
         }
         $session = JFactory::getSession();
         $id = $session->get('artgallery_front_user_id');
@@ -83,18 +85,32 @@ class ArtGalleryControllerGallery extends JControllerForm
         $dirName = JPATH_BASE. "/components/com_artgallery/media/images/user_id_" . $id . "/gallery_" . $fetch_name;
         !file_exists($dirName) ? mkdir($dirName, 0777, true) : false;
 
-        $filename = JFile::makeSafe($data[1]['name']);
+        $filename = $fetch_name . '.' . JFile::getExt($data[1]['name']);
 
         $dest = $dirName . '/' . $filename;
         $src  = $data[1]['tmp_name'];
 
         if (!JFile::upload($src, $dest))
         {
-            $app->enqueueMessage(JText::_('File was not uploaded'), 'warning');
-            return false;
-        }
+            $link = JRoute::_('index.php?option=com_artgallery&controller=gallery&task=create', false);
+            $msg = JText::_('File was not uploaded');
+            $type = 'error';
+            $this->setRedirect($link, $msg, $type);
 
-        //$this->model->save($data);
-        
+        }
+        array_push($data, $fetch_name);
+        $data[1] = $filename;
+        if (!$this->model->save($data))
+        {
+            $link = JRoute::_('index.php?option=com_artgallery&controller=gallery&task=create', false);
+            $msg = JText::_('Gallery was not saved');
+            $type = 'error';
+            $this->setRedirect($link, $msg, $type);
+        }
+        $link = JRoute::_('index.php?option=com_artgallery&view=gallerys', false);
+        $msg = JText::_('Gallery was saved');
+        $type = 'message';
+        $this->setRedirect($link, $msg, $type);
+
     }
 }

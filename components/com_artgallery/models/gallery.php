@@ -51,6 +51,23 @@ class ArtGalleryModelGallery extends JModelForm
 
     public function delete($id)
     {
+        $session = JFactory::getSession();
+        $user_id = $session->get('artgallery_front_user_id');
+
+        $db = JFactory::getDbo();
+
+        $query = $db->getQuery(true);
+
+        $query->select($db->quoteName(array('fetch_name')));
+        $query->from($db->quoteName('#__gallerys_list'));
+        $query->where($db->quoteName('id') . ' = ' . $id);
+
+        $db->setQuery($query);
+
+        $results = $db->loadObjectList();
+
+        $fetch_name = $results[0]->fetch_name;
+
         $sql = "DELETE FROM `#__gallerys_list` WHERE `id` = {$id} ; DELETE FROM `#__users_imgs` WHERE `gallery_id` = {$id}";
         $db    = JFactory::getDbo();
         $queries = $db->splitSql($sql);
@@ -58,6 +75,17 @@ class ArtGalleryModelGallery extends JModelForm
             $db->setQuery($query);
             $db->execute();
         }
+
+        $dirName = JPATH_BASE. "/components/com_artgallery/media/images/user_id_" . $user_id . "/gallery_" . $fetch_name;
+
+        $files = glob($dirName . "/*");
+        foreach($files as $file){
+            if(is_file($file)){
+                unlink($file);
+            }
+        }
+        rmdir($dirName);
+
         return true;
     }
 
@@ -97,7 +125,26 @@ class ArtGalleryModelGallery extends JModelForm
 
     public function save($data)
     {
-        $filename = JFile::makeSafe($data[]['name']);
+        $name = $data[0];
+        $avatar = $data[1];
+        $fetch = $data[2];
+        $session = JFactory::getSession();
+        $user_id = $session->get('artgallery_front_user_id');
+
+        $db = JFactory::getDbo();
+
+        $query = $db->getQuery(true);
+        $columns = array('user_id', 'name', 'avatar', 'fetch_name');
+        $values = array($user_id, $db->quote($name), $db->quote($avatar), $fetch);
+        $query
+            ->insert($db->quoteName('#__gallerys_list'))
+            ->columns($db->quoteName($columns))
+            ->values(implode(',', $values));
+        $db->setQuery($query);
+        if ($db->execute())
+            return true;
+        return false;
+
     }
 
 

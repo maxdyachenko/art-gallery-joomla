@@ -30,11 +30,9 @@ class ArtGalleryViewGallery extends JViewLegacy
     {
         $document = JFactory::getDocument();
 
-        $css_file = 'artgallery_main';
-
-        $document->addStyleSheet(JUri::root().'components/com_artgallery/media/css/'.$css_file.'.css');
-        $document->addScript(JUri::root(TRUE) . '/components/com_artgallery/media/js/name.js');
-        $document->addScript(JUri::root(TRUE) . '/components/com_artgallery/media/js/file.js');
+        $document->addStyleSheet(JUri::root().'components/com_artgallery/media/css/artgallery_main.css');
+        $document->addScript(JUri::root() . 'components/com_artgallery/media/js/name.js');
+        $document->addScript(JUri::root() . 'components/com_artgallery/media/js/file.js');
     }
 
 }
