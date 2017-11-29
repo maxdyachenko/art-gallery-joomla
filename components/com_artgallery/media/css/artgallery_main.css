@@ -226,18 +226,3 @@ dt{
 }
 
 
-
-/* footer styles */
-footer{
-	position: absolute;
-	bottom: 0;
-	width: 100%;
-	padding: 20px;
-	color: #fff;
-}
-footer p{
-	margin-bottom: 0;
-}
-footer .align-center{
-	align-items: center;
-}

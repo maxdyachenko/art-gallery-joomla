@@ -28,13 +28,13 @@ JHtml::_('behavior.formvalidator');
                     <button type="submit" class="btn btn-primary validate" name="upload-image">Upload</button>
                 </form>
             </div>
-            <?php foreach ($this->items as $content_item) : ?>
+            <?php foreach ($this->items as $item) : ?>
                 <div class="image-container col-12 col-md-4">
                     <div class="image">
-                        <img src="<?php //echo '/uploads/img/user_id_' . $this->user_id  . '/gallery_' . $content_item['gallery_fetch_name'] . '/' . $content_item['user_img']?>" alt="Your image" class="rounded">
+                        <img src="<?php echo JURI::root()  . 'components/com_artgallery/media/images/user_id_' . $this->user_id . '/gallery_' . $item->gallery_fetch . '/' . $item->user_img ?>" alt="Your image" class="rounded">
                     </div>
                     <div class="custom-popover">
-                        <button type="button" class="btn btn-primary zoom-button" data-src="<?php //echo '/uploads/img/user_id_' . $this->user_id . '/gallery_' . $content_item['gallery_fetch_name'] . '/' . $content_item['user_img']?>">Zoom</button>
+                        <button type="button" class="btn btn-primary zoom-button" data-src="<?php echo JURI::root()  . 'components/com_artgallery/media/images/user_id_' . $this->user_id . '/gallery_' . $item->gallery_fetch . '/' . $item->user_img ?>">Zoom</button>
                         <div class="form-check form-check-inline">
                             <label class="form-check-label">
                                 <input class="form-check-input" type="checkbox" name="chk[]" value="<?php //echo $content_item['user_img']; ?>">
