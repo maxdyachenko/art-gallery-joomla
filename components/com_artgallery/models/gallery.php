@@ -25,30 +25,6 @@ class ArtGalleryModelGallery extends JModelForm
     }
 
 
-    public function updItem($data)
-    {
-        // set the variables from the passed data
-        $id = $data['id'];
-        $greeting = $data['greeting'];
-
-        // set the data into a query to update the record
-        $db		= $this->getDbo();
-        $query	= $db->getQuery(true);
-        $query->clear();
-        $query->update(' #__helloworld ');
-        $query->set(' greeting = '.$db->Quote($greeting) );
-        $query->where(' id = ' . (int) $id );
-
-        $db->setQuery((string)$query);
-
-        if (!$db->query()) {
-            JError::raiseError(500, $db->getErrorMsg());
-            return false;
-        } else {
-            return true;
-        }
-    }
-
     public function delete($id)
     {
         $session = JFactory::getSession();

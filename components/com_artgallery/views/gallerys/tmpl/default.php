@@ -12,7 +12,7 @@ defined('_JEXEC') or die('Restricted access');
                 <div class="card-block">
                     <h4 class="card-title"><?php echo $item->name; ?></h4>
                     <div class="buttons-group">
-                        <a href="<?php echo JRoute::_('index.php?option=com_artgallery&controller=gallery&task=create'); ?>" class="btn btn-primary"><?php  echo JText::_(COM_ARTGALLERY_OPEN) ?></a>
+                        <a href="<?php echo JRoute::_('index.php?option=com_artgallery&controller=edit&view=edit&id='.(int)$item->id); ?>" class="btn btn-primary"><?php  echo JText::_(COM_ARTGALLERY_OPEN) ?></a>
                         <a class="btn btn-primary" href="<?php echo JRoute::_('index.php?option=com_artgallery&controller=gallery&task=remove&cid='.(int)$item->id); ?>">
                             <?php  echo JText::_(COM_ARTGALLERY_DELETE_GALLERY) ?>
                         </a>

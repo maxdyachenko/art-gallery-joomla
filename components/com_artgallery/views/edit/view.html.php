@@ -2,18 +2,16 @@
 
 defined('_JEXEC') or die('Restricted access');
 
-class ArtGalleryViewGallery extends JViewLegacy
+class ArtGalleryViewEdit extends JViewLegacy
 {
-    function display($tpl = null)
+    public function display($tpl = null)
     {
-        $app		= JFactory::getApplication();
-        $dispatcher = JDispatcher::getInstance();
 
         $state		= $this->get('State');
-        $item		= $this->get('Item');
-        var_dump($item);
-        $this->form	= $this->get('Form');
+        $this->items = $this->get('Items');
 
+        $this->session = JFactory::getSession();
+        $this->user_id = $this->session->get('artgallery_front_user_id');
 
         if (count($errors = $this->get('Errors')))
         {
@@ -29,7 +27,6 @@ class ArtGalleryViewGallery extends JViewLegacy
         $document = JFactory::getDocument();
 
         $document->addStyleSheet(JUri::root().'components/com_artgallery/media/css/artgallery_main.css');
-        $document->addScript(JUri::root() . 'components/com_artgallery/media/js/name.js');
         $document->addScript(JUri::root() . 'components/com_artgallery/media/js/file.js');
     }
 

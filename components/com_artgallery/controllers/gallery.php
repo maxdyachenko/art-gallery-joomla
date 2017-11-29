@@ -40,12 +40,12 @@ class ArtGalleryControllerGallery extends JControllerForm
         $this->setRedirect($link, $msg, $type);
     }
 
+
     public function create()
     {
         if($this->model->hasLimit($this->user_id))
         {
             $this->input->set('view', 'gallery');
-            $this->input->set('layout', 'create');
             parent::display();
 
             return;
