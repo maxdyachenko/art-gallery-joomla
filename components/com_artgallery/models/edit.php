@@ -38,6 +38,69 @@ class ArtGalleryModelEdit extends JModelList
         }
     }
 
+    public function delete($img_id, $user_id)
+    {
+
+        $db = JFactory::getDbo();
+
+        $query = $db->getQuery(true);
+
+        $query->select($db->quoteName(array('gallery_fetch', 'user_img')));
+        $query->from($db->quoteName('#__users_imgs'));
+        $query->where($db->quoteName('id') . ' = ' . $img_id);
+
+        $db->setQuery($query);
+
+        $results = $db->loadObjectList();
+
+        $fetch_name = $results[0]->gallery_fetch;
+        $user_img = $results[0]->user_img;
+
+
+
+        $sql = "DELETE FROM `#__users_imgs` WHERE `id` = {$img_id}";
+        $db    = JFactory::getDbo();
+        $db->setQuery($sql);
+        if (!$db->execute())
+        {
+            $this->setError(JText::_(COM_ARTGALLERY_ERROR));
+            return false;
+        }
+
+
+        $file = JPATH_BASE. "/components/com_artgallery/media/images/user_id_" . $user_id . "/gallery_" . $fetch_name . '/' . $user_img ;
+
+        if(is_file($file)){
+            unlink($file);
+        }
+
+
+        return true;
+    }
+
+    public function checkImgId($img_id, $user_id)
+    {
+        $db = JFactory::getDbo();
+
+        $query = $db->getQuery(true);
+
+        $query->select($db->quoteName('gallery_fetch'));
+        $query->from($db->quoteName('#__users_imgs'));
+        $query->where($db->quoteName('user_id') . ' = ' . $user_id);
+        $query->where($db->quoteName('id') . ' = ' . $img_id);
+
+        $db->setQuery($query);
+
+        $results = $db->loadRow();
+        if (!$results)
+        {
+            $this->setError(JText::_(COM_ARTGALLERY_ERROR));
+            return false;
+        }
+        return true;
+    }
+
+
     public function getFetchName($id)
     {
 

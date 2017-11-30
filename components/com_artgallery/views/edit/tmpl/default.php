@@ -41,7 +41,8 @@ JHtml::_('behavior.formvalidator');
                                 <input class="form-check-input" type="checkbox" name="chk[]" value="<?php //echo $content_item['user_img']; ?>">
                             </label>
                         </div>
-                        <button type="button" class="btn btn-danger">Delete image</button>
+                        <a class="btn btn-danger" href="<?php echo JRoute::_('index.php?option=com_artgallery&controller=edit&task=remove&imgid='.(int)$item->id) . '&gid=' . $this->gallery_id; ?>">
+                            <?php  echo JText::_(COM_ARTGALLERY_DELETE) ?></a>
                     </div>
                 </div>
             <?php endforeach; ?>

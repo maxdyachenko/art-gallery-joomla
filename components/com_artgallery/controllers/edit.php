@@ -46,6 +46,37 @@ class ArtGalleryControllerEdit extends JControllerLegacy
         return true;
     }
 
+    public function remove()
+    {
+
+        $this->img_id = intval($this->input->getInt('imgid', 0));
+        $gid = intval($this->input->getInt('gid', 0));
+        if (!$this->model->checkImgId($this->img_id, $this->user_id))
+        {
+            $error = $this->model->getErrors();
+            $link = JRoute::_('index.php?option=com_artgallery', false);
+            $msg = $error[0];
+            $type = 'error';
+            $this->setRedirect($link, $msg, $type);
+            return;
+        }
+
+        if(!$this->model->delete($this->img_id, $this->user_id))
+        {
+            $msg = JText::_('COM_ARTGALLERY_ERROR');
+            $type = 'error';
+        }
+        else
+        {
+            $msg = JText::_('COM_ARTGALLERY_IMG_DELETED');
+            $type = 'success';
+        }
+
+
+        $link = JRoute::_('index.php?option=com_artgallery&controller=edit&view=edit&id=' . $gid, false);
+        $this->setRedirect($link, $msg, $type);
+    }
+
 
     public function add()
     {
