@@ -23,4 +23,5 @@ class ArtGalleryControllerEdit extends JControllerLegacy
 
         return $model;
     }
+
 }
