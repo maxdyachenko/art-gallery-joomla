@@ -36,7 +36,6 @@ JHtml::_('behavior.formvalidator');
                         <img src="<?php echo JURI::root()  . 'components/com_artgallery/media/images/user_id_' . $this->user_id . '/gallery_' . $item->gallery_fetch . '/' . $item->user_img ?>" alt="Your image" class="rounded">
                     </div>
                     <div class="custom-popover">
-                        <button type="button" class="btn btn-primary zoom-button" data-src="<?php echo JURI::root()  . 'components/com_artgallery/media/images/user_id_' . $this->user_id . '/gallery_' . $item->gallery_fetch . '/' . $item->user_img ?>">Zoom</button>
                         <div class="form-check form-check-inline">
                             <label class="form-check-label">
                                 <input class="form-check-input" type="checkbox" name="chk[]" value="<?php //echo $content_item['user_img']; ?>">
@@ -46,7 +45,7 @@ JHtml::_('behavior.formvalidator');
                     </div>
                 </div>
             <?php endforeach; ?>
+            <?php echo $this->pagination->getListFooter() ?>
         </div>
     </section>
 </div>
-<div class="clr"></div>

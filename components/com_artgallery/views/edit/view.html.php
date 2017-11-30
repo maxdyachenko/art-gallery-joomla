@@ -19,6 +19,7 @@ class ArtGalleryViewEdit extends JViewLegacy
             JError::raiseError(500, implode('<br />', $errors));
             return false;
         }
+        $this->pagination = $this->get('Pagination');
         parent::display($tpl);
         $this->setDocument();
     }
