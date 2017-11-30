@@ -24,6 +24,27 @@ class ArtGalleryModelGallery extends JModelForm
 
     }
 
+    public function haveUserGallery($gallery_id, $user_id)
+    {
+        $db = JFactory::getDbo();
+
+        $query = $db->getQuery(true);
+
+        $query->select($db->quoteName('fetch_name'));
+        $query->from($db->quoteName('#__gallerys_list'));
+        $query->where($db->quoteName('user_id') . ' = ' . $user_id);
+        $query->where($db->quoteName('id') . ' = ' . $gallery_id);
+
+        $db->setQuery($query);
+
+        $results = $db->loadRow();
+        if (!$results)
+        {
+            $this->setError(JText::_(COM_ARTGALLERY_ERROR));
+            return false;
+        }
+        return true;
+    }
 
     public function delete($id)
     {

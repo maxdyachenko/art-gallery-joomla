@@ -22,8 +22,26 @@ class ArtGalleryControllerGallery extends JControllerForm
         return $model;
     }
 
+    public function checkGalleryId($gallery_id, $user_id)
+    {
+        if (!$this->model->haveUserGallery($gallery_id, $user_id))
+        {
+            $error = $this->model->getErrors();
+            $link = JRoute::_('index.php?option=com_artgallery', false);
+            $msg = $error[0];
+            $type = 'error';
+            $this->setRedirect($link, $msg, $type);
+            return false;
+        }
+        return true;
+    }
+
     public function remove()
     {
+        if (!$this->checkGalleryId($this->gallery_id, $this->user_id))
+        {
+            return;
+        }
         if(!$this->model->delete($this->gallery_id))
         {
             $msg = JText::_('COM_ARTGALLERY_ERROR_GALLERY_COULD_NOT_BE_DELETED');
