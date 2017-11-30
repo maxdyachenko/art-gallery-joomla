@@ -76,6 +76,7 @@ class ArtGalleryControllerGallery extends JControllerForm
             $msg = $error[0];
             $type = 'error';
             $this->setRedirect($link, $msg, $type);
+            return;
         }
         $session = JFactory::getSession();
         $id = $session->get('artgallery_front_user_id');

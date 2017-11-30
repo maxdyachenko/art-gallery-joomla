@@ -15,7 +15,7 @@ JHtml::_('behavior.formvalidator');
             <div class="image-container col-12 col-md-4 add-image-block">
                 <form class="form-validate" action="<?php echo JRoute::_('index.php?option=com_artgallery'); ?>" enctype="multipart/form-data" method="post" id="add" name="add">
                     <div class="button-container">
-                        <input type="file" name="avatar" id="avatar" size="12" accept="image/*" class="validate-file required add-button input-file" required="required" aria-required="true" aria-invalid="true" />
+                        <input type="file" name="file" id="file" size="12" accept="image/*" class="validate-file required add-button input-file" required="required" aria-required="true" aria-invalid="true" />
                         <label for="file">
                             <figure></figure>
                             <p>Choose file...</p>
@@ -24,8 +24,10 @@ JHtml::_('behavior.formvalidator');
                     <input type="hidden" name="option" value="com_artgallery" />
                     <input type="hidden" name="MAX_FILE_SIZE" value="2000">
                     <input type="hidden" name="task" value="add"/>
-                    <input type="hidden" name="controller" value="gallery"/>
+                    <input type="hidden" name="controller" value="edit"/>
+                    <input type="hidden" name="id" value="<?php echo $this->gallery_id; ?>"/>
                     <button type="submit" class="btn btn-primary validate" name="upload-image">Upload</button>
+                    <?php echo JHtml::_('form.token'); ?>
                 </form>
             </div>
             <?php foreach ($this->items as $item) : ?>
