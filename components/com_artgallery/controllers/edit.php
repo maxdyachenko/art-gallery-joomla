@@ -61,7 +61,7 @@ class ArtGalleryControllerEdit extends JControllerLegacy
             return;
         }
 
-        if(!$this->model->delete($this->img_id, $this->user_id))
+        if(!$this->model->remove($this->img_id, $this->user_id))
         {
             $msg = JText::_('COM_ARTGALLERY_ERROR');
             $type = 'error';
@@ -75,6 +75,70 @@ class ArtGalleryControllerEdit extends JControllerLegacy
 
         $link = JRoute::_('index.php?option=com_artgallery&controller=edit&view=edit&id=' . $gid, false);
         $this->setRedirect($link, $msg, $type);
+    }
+
+    public function delete()
+    {
+        JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+
+        $gallery_id = intval($this->input->getInt('id', 0));
+
+        if (!$this->checkGalleryId($gallery_id, $this->user_id))
+        {
+            return;
+        }
+
+        $jinput = JFactory::getApplication()->input;
+        $chk  = $jinput->post->get('imgs');
+
+        if (!$chk)
+        {
+            $link = JRoute::_('index.php?option=com_artgallery&controller=edit&view=edit&id=' . $gallery_id, false);
+            $msg = JText::_('COM_ARTGALLERY_ERROR');;
+            $type = 'error';
+            $this->setRedirect($link, $msg, $type);
+        }
+
+        $chk = implode(',', $chk);
+
+        if ($this->model->deleteSelected($chk, $this->user_id, $gallery_id))
+        {
+            $link = JRoute::_('index.php?option=com_artgallery&controller=edit&view=edit&id=' . $gallery_id, false);
+            $msg = JText::_('COM_ARTGALLERY_IMAGES_DELETED');;
+            $type = 'message';
+            $this->setRedirect($link, $msg, $type);
+            return true;
+        }
+
+        $link = JRoute::_('index.php?option=com_artgallery&controller=edit&view=edit&id=' . $gallery_id, false);
+        $msg = JText::_('COM_ARTGALLERY_ERROR');;
+        $type = 'error';
+        $this->setRedirect($link, $msg, $type);
+
+    }
+
+    public function deleteAll()
+    {
+        $gallery_id = intval($this->input->getInt('gid', 0));
+
+        if (!$this->checkGalleryId($gallery_id, $this->user_id))
+        {
+            return;
+        }
+
+        if ($this->model->deleteAll($this->user_id, $gallery_id))
+        {
+            $link = JRoute::_('index.php?option=com_artgallery&controller=edit&view=edit&id=' . $gallery_id, false);
+            $msg = JText::_('COM_ARTGALLERY_IMAGES_DELETED');;
+            $type = 'message';
+            $this->setRedirect($link, $msg, $type);
+            return true;
+        }
+        $link = JRoute::_('index.php?option=com_artgallery&controller=edit&view=edit&id=' . $gallery_id, false);
+        $msg = JText::_('COM_ARTGALLERY_ERROR');;
+        $type = 'error';
+        $this->setRedirect($link, $msg, $type);
+
     }
 
 
@@ -119,7 +183,7 @@ class ArtGalleryControllerEdit extends JControllerLegacy
         if (!JFile::upload($src, $dest))
         {
             $link = JRoute::_('index.php?option=com_artgallery&controller=edit&view=edit&id=' . $this->gallery_id, false);
-            $msg = JText::_('File was not uploaded');
+            $msg = JText::_('COM_ARTGALLERY_FILE_WAS_NOT_UPLOADED');
             $type = 'error';
             $this->setRedirect($link, $msg, $type);
             return;
@@ -134,7 +198,7 @@ class ArtGalleryControllerEdit extends JControllerLegacy
             return;
         }
         $link = JRoute::_('index.php?option=com_artgallery&controller=edit&view=edit&id=' . $this->gallery_id, false);
-        $msg = JText::_('Image was saved');
+        $msg = JText::_('COM_ART_GALLERY_IMAGE_SAVED');
         $type = 'message';
         $this->setRedirect($link, $msg, $type);
 

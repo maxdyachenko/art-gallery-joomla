@@ -81,7 +81,7 @@ class ArtGalleryControllerGallery extends JControllerForm
 
         $app        = JFactory::getApplication();
         $jinput = JFactory::getApplication()->input;
-        $name = $jinput->get('name');
+        $name = $jinput->getVar('name');
         $file  = $jinput->files->get('avatar');
         $data = array();
         array_push($data, $name, $file);

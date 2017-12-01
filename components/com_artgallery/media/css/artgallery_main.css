@@ -225,4 +225,7 @@ dt{
 	margin-top: 20px;
 }
 
-
+.buttons-group {
+	display: flex;
+	justify-content: space-between;
+}

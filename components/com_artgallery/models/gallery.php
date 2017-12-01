@@ -98,7 +98,7 @@ class ArtGalleryModelGallery extends JModelForm
 
     public function validate($data)
     {
-        if (!preg_match('~^[A-Za-z]{2,16}$~', $data[0]))
+        if (!preg_match('~^[A-Za-z\s]{2,16}$~', $data[0]))
         {
             $this->setError(JText::_(COM_ARTGALLERY_NAME_ERROR));
             return false;
@@ -125,6 +125,7 @@ class ArtGalleryModelGallery extends JModelForm
         $name = $data[0];
         $avatar = $data[1];
         $fetch = $data[2];
+
         $session = JFactory::getSession();
         $user_id = $session->get('artgallery_front_user_id');
 

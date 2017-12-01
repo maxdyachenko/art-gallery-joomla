@@ -38,7 +38,71 @@ class ArtGalleryModelEdit extends JModelList
         }
     }
 
-    public function delete($img_id, $user_id)
+    public function deleteSelected($imgs, $user_id, $gallery_id)
+    {
+        $db = JFactory::getDbo();
+
+        $fetch = $this->getFetchName($gallery_id);
+
+        $dirName = JPATH_ROOT. "/components/com_artgallery/media/images/user_id_" . $user_id . "/gallery_" . $fetch;
+
+        $imgs_array = explode(',', $imgs);
+
+
+        for ($i = 0;$i < count($imgs_array); $i++)
+        {
+            $file = $dirName . "/" . $imgs_array[$i];
+            if(is_file($file)){
+                unlink($file);
+            }
+        }
+
+        $str = "";
+        for ($i = 0;$i < count($imgs_array); $i++){
+            $str .= "'";
+            $str .= $imgs_array[$i];
+            $str .= "'";
+            if ($i != count($imgs_array) - 1) {
+                $str .= ',';
+            }
+        }
+        $sql = "DELETE FROM `#__users_imgs` WHERE `user_img` IN ({$str}) AND `user_id` = {$user_id};";
+        $db->setQuery($sql);
+        if ($db->execute())
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function deleteAll($user_id, $gallery_id)
+    {
+        $fetch = $this->getFetchName($gallery_id);
+
+        $dirName = JPATH_ROOT. "/components/com_artgallery/media/images/user_id_" . $user_id . "/gallery_" . $fetch;
+        $files = glob($dirName . "/*");
+        foreach($files as $file){
+            if(is_file($file) && strpos($file, $fetch) == false){
+                unlink($file);
+            }
+        }
+
+        $db = JFactory::getDbo();
+
+        $sql = "DELETE FROM `#__users_imgs` WHERE `user_id` = {$user_id} AND `gallery_id` = {$gallery_id};";
+        $db->setQuery($sql);
+        if ($db->execute())
+        {
+            return true;
+        }
+
+        return false;
+
+
+    }
+
+    public function remove($img_id, $user_id)
     {
 
         $db = JFactory::getDbo();

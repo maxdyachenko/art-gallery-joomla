@@ -34,4 +34,3 @@ JHtml::_('behavior.formvalidator');
         </dl>
     </fieldset>
 </form>
-<div class="clr"></div>

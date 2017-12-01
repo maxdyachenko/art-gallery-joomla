@@ -11,7 +11,6 @@ class ArtGalleryViewGallery extends JViewLegacy
 
         $state		= $this->get('State');
         $item		= $this->get('Item');
-        var_dump($item);
         $this->form	= $this->get('Form');
 
 
