@@ -35,25 +35,31 @@ class ArtGalleryModelUsers extends JModelList
 
         $results = array();
 
+
         for ($i = 0;$i < count($id); $i++)
         {
             $query = $db->getQuery(true);
 
-            $query->select($db->quoteName(array('fetch_name')));
+            $query->select($db->quoteName('fetch_name'));
             $query->from($db->quoteName('#__gallerys_list'));
             $query->where($db->quoteName('user_id') . ' = ' . $id[$i]);
 
             $db->setQuery($query);
 
-            array_push($results,$db->loadrow());
-            $dirName = JPATH_ROOT. "/components/com_artgallery/media/images/user_id_" . $id[$i] . "/gallery_" . $results[$i][0];
-            $files = glob($dirName . "/*");
-            foreach($files as $file){
-                if(is_file($file)){
-                    unlink($file);
+            array_push($results,$db->loadObjectList());
+
+            for ($j = 0; $j < count($results[0]); $j++)
+            {
+                $dirName = JPATH_ROOT. "/components/com_artgallery/media/images/user_id_" . $id[$i] . "/gallery_" . $results[0][$j]->fetch_name;
+                $files = glob($dirName . "/*");
+                foreach($files as $file){
+                    if(is_file($file)){
+                        unlink($file);
+                    }
                 }
+                rmdir($dirName);
             }
-            rmdir($dirName);
+
         }
         $str = "";
         for ($i = 0;$i < count($id); $i++){
@@ -72,6 +78,7 @@ class ArtGalleryModelUsers extends JModelList
         return true;
     }
 
+
     public function publish($cid, $value)
     {
         $id = $cid[0];
@@ -86,10 +93,8 @@ class ArtGalleryModelUsers extends JModelList
 
     public function getListQuery()
     {
-        // Initialize variables.
         $db    = JFactory::getDbo();
         $query = $db->getQuery(true);
-        // Create the base select statement.
         $query->select($db->quoteName(array('#__users.id','#__users.block','#__users.username', '#__users.email')))
             ->from($db->quoteName('#__users'))
             ->join('INNER', $db->quoteName('#__gallerys_list') . ' ON (' . $db->quoteName('#__users.id') . ' = ' . $db->quoteName('#__gallerys_list.user_id') . ')')
@@ -102,7 +107,6 @@ class ArtGalleryModelUsers extends JModelList
             $query->where('username LIKE ' . $like);
         }
 
-        // Add the list ordering clause.
         $orderCol	= $this->state->get('list.ordering', 'username');
         $orderDirn 	= $this->state->get('list.direction', 'ASC');
 

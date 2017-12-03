@@ -219,7 +219,30 @@ dt{
 	flex-direction: column;
 	justify-content: space-between;
 }
-
+.container {
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+}
+.chk {
+	margin-bottom: 30px;
+}
+.pagination {
+	text-align: center;
+	margin-top: 30px !important;
+}
+.container-gal:before, .container-gal:after {
+	content: none !important;
+}
+.image-block {
+	text-align: center;
+	justify-content: center;
+	align-items: center;
+}
+.image-block img {
+	max-width:250px;
+	max-height: 200px;
+}
 /*Create gallery page*/
 #galleryName, #create-gallery-btn {
 	margin-top: 20px;

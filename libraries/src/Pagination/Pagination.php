@@ -395,6 +395,7 @@ class Pagination
 		// Make sure it exists
 		$list['pages'] = array();
 
+
 		foreach ($data->pages as $i => $page)
 		{
 			if ($page->base !== null)
