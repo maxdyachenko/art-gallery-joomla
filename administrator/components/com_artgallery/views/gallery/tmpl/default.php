@@ -6,6 +6,11 @@ defined('_JEXEC') or die;
 
 ?>
 <form action="index.php?option=com_artgallery&view=gallery&id=<?php echo $this->gallery_id ?>" method="post" id="adminForm" name="adminForm">
+    <div class="row-fluid">
+        <div class="span6">
+            <?php echo $this->pagination->getLimitBox(); ?>
+        </div>
+    </div>
     <div class="container container-gal">
         <?php foreach ($this->items as $i =>$item): ?>
 

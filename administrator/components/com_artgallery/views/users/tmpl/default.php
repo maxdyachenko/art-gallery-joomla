@@ -9,7 +9,7 @@ $listDirn    = $this->escape($this->state->get('list.direction'));
 <form action="index.php?option=com_artgallery&view=users" method="post" id="adminForm" name="adminForm">
     <div class="row-fluid">
         <div class="span6">
-            <?php echo JText::_('COM_HELLOWORLD_HELLOWORLDS_FILTER'); ?>
+            <?php echo JText::_('COM_ARTGALLERY_SEARCH'); ?>
             <?php
             echo JLayoutHelper::render(
                 'joomla.searchtools.default',
